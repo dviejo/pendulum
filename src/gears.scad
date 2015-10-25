@@ -8,38 +8,55 @@
  * 
  */
 
-use</home/dviejo/Documentos/piezas/MCAD/involute_gears.scad>
+use<include/MCAD/involute_gears.scad>
 
 
-difference()
+// piñon del motor. Radio = 10
+*difference()
 {
     union()
     {
-        cylinder(r=12.3, h=10);
-        gear (circular_pitch=400,
+        cylinder(r=9.25, h=7);
+        gear (circular_pitch=300,
             number_of_teeth = 9,
-            gear_thickness = 20,
-            rim_thickness = 20,
-            hub_thickness = 20,
+            gear_thickness = 7+7,
+            rim_thickness = 7+7,
+            hub_thickness = 7+7,
             hub_diameter = 10,
+	    bore_diameter = 5.25,
             circles=0);
     }
     
-    translate([-50, 0, 10/2]) rotate([0, 90, 0]) cylinder(d=2, h=50);
-    translate([0, 0, -0.1]) cylinder(d=5.1, h=30, $fn=40);
+    translate([-50, 0, 6.6/2]) rotate([0, 90, 0]) cylinder(d=3.1, h=50);
+    hull()
+    {
+      #translate([-6.5, 0, 6.6/2+0.3]) rotate([0, 90, 0]) cylinder(d=6.4, h=2.8, $fn=6);
+      translate([-6.5, 0, -50]) rotate([0, 90, 0]) cylinder(d=6.4, h=2.8, $fn=6);
+    }
+    translate([0, 0, -0.1]) cylinder(d=5.25, h=30, $fn=40);
 }
 
-//cylinder(r=16.6667, h=2);
 
-translate([20+10, 0, 0])
+//Corona. Radio = 30
+alturaCorona = 6+7;
+//translate([40+10, 0, 0])
+difference()
 {
-//    cylinder(r=50, h=2);
-    gear (circular_pitch=400,
-          number_of_teeth = 18,
-	gear_thickness = 10,
-	rim_thickness = 10,
-	hub_thickness = 20,
+    gear (circular_pitch=300,
+	number_of_teeth = 18,
+	gear_thickness = 6,
+	rim_thickness = 6,
+	hub_thickness = alturaCorona,
         hub_diameter = 20,
+	bore_diameter = 5.25,
 	circles=0);
+
+    translate([-25, 0, alturaCorona-6.6/2]) rotate([0, 90, 0]) cylinder(d=3.1, h=50);
+    hull()
+    {
+      #translate([-6.5, 0, alturaCorona-6.6/2-0.3]) rotate([0, 90, 0]) cylinder(d=6.4, h=2.8, $fn=6);
+      translate([-6.5, 0, 50]) rotate([0, 90, 0]) cylinder(d=6.4, h=2.8, $fn=6);
+    }
+    translate([0, 0, -0.1]) cylinder(d=5.25, h=30, $fn=40);
 }
 
