@@ -12,7 +12,7 @@ use<include/MCAD/involute_gears.scad>
 
 
 // piñon del motor. Radio = 10
-*difference()
+difference()
 {
     union()
     {
@@ -27,11 +27,11 @@ use<include/MCAD/involute_gears.scad>
             circles=0);
     }
     
-    translate([-50, 0, 6.6/2]) rotate([0, 90, 0]) cylinder(d=3.1, h=50);
+    translate([-50, 0, 6.6/2]) rotate([0, 90, 0]) cylinder(d=3, h=50, $fn=30);
     hull()
     {
-      #translate([-6.5, 0, 6.6/2+0.3]) rotate([0, 90, 0]) cylinder(d=6.4, h=2.8, $fn=6);
-      translate([-6.5, 0, -50]) rotate([0, 90, 0]) cylinder(d=6.4, h=2.8, $fn=6);
+      translate([-6.5, 0, 6.6/2+0.35]) rotate([0, 90, 0]) cylinder(d=6.5, h=2.8, $fn=6);
+      translate([-6.5, 0, -50]) rotate([0, 90, 0]) cylinder(d=6.5, h=2.8, $fn=6);
     }
     translate([0, 0, -0.1]) cylinder(d=5.25, h=30, $fn=40);
 }
@@ -39,7 +39,7 @@ use<include/MCAD/involute_gears.scad>
 
 //Corona. Radio = 30
 alturaCorona = 6+7;
-//translate([40+10, 0, 0])
+translate([30+10, 0, 0])
 difference()
 {
     gear (circular_pitch=300,
@@ -51,11 +51,11 @@ difference()
 	bore_diameter = 5.25,
 	circles=0);
 
-    translate([-25, 0, alturaCorona-6.6/2]) rotate([0, 90, 0]) cylinder(d=3.1, h=50);
+    translate([-25, 0, alturaCorona-6.6/2]) rotate([0, 90, 0]) cylinder(d=3, h=25, $fn=30);
     hull()
     {
-      #translate([-6.5, 0, alturaCorona-6.6/2-0.3]) rotate([0, 90, 0]) cylinder(d=6.4, h=2.8, $fn=6);
-      translate([-6.5, 0, 50]) rotate([0, 90, 0]) cylinder(d=6.4, h=2.8, $fn=6);
+      translate([-6.5, 0, alturaCorona-6.6/2-0.35]) rotate([0, 90, 0]) cylinder(d=6.5, h=2.8, $fn=6);
+      translate([-6.5, 0, 50]) rotate([0, 90, 0]) cylinder(d=6.5, h=2.8, $fn=6);
     }
     translate([0, 0, -0.1]) cylinder(d=5.25, h=30, $fn=40);
 }
