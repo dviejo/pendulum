@@ -13,16 +13,16 @@ use<include/MCAD/stepper.scad>
 
 anguloRot = 8; 
 
-anguloActual = -anguloRot;
+anguloActual = anguloRot;
 
 pendulumHeight = 5; //4
 shaftDist = (42+16)/2+1; //(nema17width + 625zzDiam)/2 + 1;
 shaftPos = 15+7.5+0.25;
-tipPos = shaftPos+9.72/2;
-tipHeight = pendulumHeight+14+10.4+0.25;
+tipPos = shaftPos-9.72/2;
+tipHeight = pendulumHeight+10.4+0.25;
 
   //pivoting axle
-  color("silver") translate([0, 0, -30]) cylinder(d=5, h=30+40);
+  color("silver") translate([0, 0, -30]) cylinder(d=5, h=30+60);
 
   
   translate([0, -shaftDist, 14]) mirror([0, 0, 1]) import("../output/pinion.stl");
@@ -37,16 +37,16 @@ tipHeight = pendulumHeight+14+10.4+0.25;
     //ejes
     color("silver") 
     {
-      rotate(anguloRot) translate([shaftPos, -shaftDist, 0]) cylinder(d=5, h=50);
-      rotate(-anguloRot) translate([-shaftPos, -shaftDist, 0]) cylinder(d=5, h=50);
+      rotate(anguloRot) translate([shaftPos, -shaftDist, 0]) cylinder(d=5, h=60);
+      rotate(-anguloRot) translate([-shaftPos, -shaftDist, 0]) cylinder(d=5, h=60);
     }
     
     //filament feeder
     color("green")
     {
-      translate([tipPos, 0, tipHeight]) rotate(anguloRot) rotate([90, 0, 0]) 
+      translate([tipPos, 0, tipHeight+14]) rotate(anguloRot) rotate([90, 0, 0]) 
 	translate([0, 0, -50])cylinder(d=3.3, h=120, $fn=60);
-      translate([-(tipPos), 0, tipHeight]) 
+      translate([-(tipPos), 0, tipHeight+14]) 
 	rotate(-anguloRot) rotate([90, 0, 0]) translate([0, 0, -50]) cylinder(d=3.3, h=120, $fn=60);
       echo("Hotend 0 pos: ",tipPos);
       echo("Hotend 1 pos: ",-tipPos);
@@ -88,20 +88,37 @@ module pendulum()
 
 
       }
-	hull()
-	{
+      hull()
+      {
 	  rotate(17.6725+ anguloRot) 
 	  {
 	    translate([10, 5, 0]) cylinder(d=10, h=pendulumHeight, $fn=60);
 	    translate([-10, 10, 0]) cylinder(d=10, h=pendulumHeight, $fn=60);
 	  }
-	  rotate(anguloRot) translate([shaftPos, -shaftDist, 0]) cylinder(d=22, h=pendulumHeight, $fn=60);
-	  rotate(-anguloRot) translate([-shaftPos, -shaftDist, 0]) cylinder(d=22, h=pendulumHeight, $fn=60);
+	  #rotate(anguloRot) translate([shaftPos+12, -5, 0]) cylinder(d=22, h=pendulumHeight, $fn=60);
+	  #rotate(-anguloRot) translate([-shaftPos-12, -5, 0]) cylinder(d=22, h=pendulumHeight, $fn=60);
 
-	  rotate(anguloRot) translate([shaftPos+10, -50, 0]) cylinder(d=22, h=pendulumHeight, $fn=60);
-	  rotate(-anguloRot) translate([-shaftPos-10, -50, 0]) cylinder(d=22, h=pendulumHeight, $fn=60);
-	}
-    }
+	  rotate(anguloRot) translate([shaftPos+6, -45, 0]) cylinder(d=15, h=pendulumHeight, $fn=60);
+	  rotate(-anguloRot) translate([-shaftPos-6, -45, 0]) cylinder(d=15, h=pendulumHeight, $fn=60);
+	  
+	  rotate(anguloRot) translate([shaftPos-8, -48, 0]) cylinder(d=10, h=pendulumHeight, $fn=60);
+	  rotate(-anguloRot) translate([-shaftPos+8, -48, 0]) cylinder(d=10, h=pendulumHeight, $fn=60);
+
+      }
+      hull()
+      {
+	  rotate(anguloRot) translate([shaftPos+6, -45, 0]) cylinder(d=15, h=tipHeight+diam/2+2+0.6, $fn=60);
+	  rotate(-anguloRot) translate([-shaftPos-6, -45, 0]) cylinder(d=15, h=tipHeight+diam/2+2+0.6, $fn=60);
+	  
+	  rotate(anguloRot) translate([shaftPos-8, -48, 0]) cylinder(d=10, h=tipHeight+diam/2+2+0.6, $fn=60);
+	  rotate(-anguloRot) translate([-shaftPos+8, -48, 0]) cylinder(d=10, h=tipHeight+diam/2+2+0.6, $fn=60);
+      }
+      
+      //pivoting support structure
+      cylinder(d=17, h=tipHeight+diam/2+2+0.6);
+      
+    } //end union
+    
     rotate(17.6725+ anguloRot) 
     {
       hull()
@@ -116,13 +133,13 @@ module pendulum()
   
     }
     
-    //pivoting bearing
+    //pivoting bearing 625zz
     translate([0, 0, -1]) cylinder(d=9, h=50); 
       //lower bearing
-    translate([0, 0, -1]) cylinder(d=13+0.2, h=3+1.25); 
-    translate([0, 0, -0.05]) cylinder(d=15+0.2, h=1.1);
+    translate([0, 0, -1]) cylinder(d=16+0.2, h=3+1.25); 
+//    translate([0, 0, -0.05]) cylinder(d=15+0.2, h=1.1);
     
-    //shaft & bearings
+    //shaft & bearings 625zz
     rotate(anguloRot) translate([shaftPos, -shaftDist, -1]) cylinder(d=9, h=100, $fn=60);
     rotate(-anguloRot) translate([-shaftPos, -shaftDist, -1]) cylinder(d=9, h=100, $fn=60);
 
@@ -139,25 +156,34 @@ module pendulum()
 	rotate(angle+1) translate([0, -shaftDist, -1]) cylinder(d=5.5, h=pendulumHeight+2); 
       }
     }
+    
+      translate([tipPos, 0, tipHeight]) rotate(anguloRot) 
+	rotate([-90, 0, 0]) translate([0, 0, -35]) 
+	  extruderMount();
+      translate([-tipPos, 0, tipHeight]) rotate(-anguloRot) 
+	rotate([-90, 0, 0]) translate([0, 0, -35]) 
+	  extruderMount();
+
+      //support for idlers
+      #rotate(-anguloRot) 
+	translate([-shaftPos+15.5, -shaftDist+15.5, -1]) 
+	  cylinder(d=3, h=50, $fn=60);
+      #rotate(anguloRot) 
+	translate([shaftPos-15.5, -shaftDist+15.5, -1]) 
+	  cylinder(d=3, h=50, $fn=60);
   }
 }
 
     //hotend mount
     rotate(anguloActual)
     {
-      #translate([tipPos, 0, tipHeight]) rotate(anguloRot) 
-	rotate([-90, 0, 0]) translate([0, 0, -35]) 
-	  extruderMount();
-      #translate([-tipPos, 0, tipHeight]) rotate(-anguloRot) 
-	rotate([-90, 0, 0]) translate([0, 0, -35]) 
-	  extruderMount();
 	  
       //idlers
-      rotate(-anguloRot)
-	translate([-shaftPos-15.5, -shaftDist+15.5, tipHeight- (mainHeight/2 + offset -3/2)]) 
-	  rotate(7) idler();
       rotate(anguloRot)
-	translate([shaftPos+15.5, -shaftDist+15.5, tipHeight - (mainHeight/2 + offset -3/2)]) 
+	translate([shaftPos-15.5, -shaftDist+15.5, tipHeight + 14- (mainHeight/2 + offset -3/2)]) 
+	  rotate(7) idler();
+      rotate(-anguloRot)
+	translate([-shaftPos+15.5, -shaftDist+15.5, tipHeight+ 14 - (mainHeight/2 + offset -3/2)]) 
 	  mirror([1,0,0]) rotate(7) idler();
     }
     
