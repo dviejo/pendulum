@@ -159,6 +159,7 @@ module pendulum()
 	translate([shaftPos-15.5, -shaftDist+15.5-1, -1]) 
 	  cylinder(d=3, h=50, $fn=60);
 
+    //Springs are now at 11.5 mm of distance from both centers
     //Springs side of extruder0
     rotate(-anguloRot)
     {
@@ -166,9 +167,9 @@ module pendulum()
             translate([-31,0,0]) cube([30, 15, tipHeight+diam/2+2+0.6+2]);
         translate([-shaftPos-6.5, -15.5+2, pendulumHeight]) rotate(-30-5.5) 
             translate([-27,0,0]) cube([30, 15, tipHeight+diam/2+2+0.6+2]);
-        #translate([-shaftPos-15.5, 0, tipHeight-3]) rotate([90, 0, (150 - 5.5)]) translate([-3.0, 0, -7.5]) 
+        #translate([-shaftPos-15.5, 0, tipHeight-5.75]) rotate([90, 0, (150 - 5.5)]) translate([-3.0, 0, -7.5]) 
             cylinder(r = spring_d * 7/12, h = 10, $fn = 6);
-        #translate([-shaftPos-15.5, 0, tipHeight+9]) rotate([90, 0, (150 - 5.5)]) translate([-3.0, 0, -7.5]) 
+        #translate([-shaftPos-15.5, 0, tipHeight+5.75]) rotate([90, 0, (150 - 5.5)]) translate([-3.0, 0, -7.5]) 
             cylinder(r = spring_d * 7/12, h = 10, $fn = 6);
     }
             
@@ -179,9 +180,9 @@ module pendulum()
             translate([1, 0, 0]) cube([30, 20, tipHeight+diam/2+2+0.6+2]);
         translate([shaftPos+6.5, -15.5+2, pendulumHeight]) rotate(30+5.5) 
             translate([-5, 0, 0]) cube([30, 20, tipHeight+diam/2+2+0.6+2]);
-        #translate([shaftPos+15.5, 0, tipHeight-3]) rotate([90, 0, -(150 - 5.5)]) translate([3.0, 0, -7.5]) 
+        #translate([shaftPos+15.5, 0, tipHeight-5.75]) rotate([90, 0, -(150 - 5.5)]) translate([3.0, 0, -7.5]) 
             cylinder(r = spring_d * 7/12, h = 10, $fn = 6);
-        #translate([shaftPos+15.5, 0, tipHeight+9]) rotate([90, 0, -(150 - 5.5)]) translate([3.0, 0, -7.5]) 
+        #translate([shaftPos+15.5, 0, tipHeight+5.75]) rotate([90, 0, -(150 - 5.5)]) translate([3.0, 0, -7.5]) 
             cylinder(r = spring_d * 7/12, h = 10, $fn = 6);
     }
     
