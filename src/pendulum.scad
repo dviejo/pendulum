@@ -78,7 +78,7 @@ module pendulum()
       hull()
       {
         cylinder(d=17, h=tipHeight+diam/2+2+0.6);
-        translate([0, 9, 0]) cylinder(d=6, h=tipHeight+diam/2+2+0.6);
+        translate([0, 9, 0]) cylinder(d=8, h=tipHeight+diam/2+2+0.6);
       }
       
       //springs' holder
@@ -87,14 +87,14 @@ module pendulum()
         rotate(anguloRot) translate([shaftPos+14, -6, 0]) 
             cylinder(d=20, h=tipHeight+diam/2+2+0.6, $fn=60);
         rotate(anguloRot) translate([shaftPos+11, -22, 0]) 
-            cylinder(d=6, h=tipHeight+diam/2+2+0.6, $fn=60);
+            cylinder(d=8, h=tipHeight+diam/2+2+0.6, $fn=60);
       }
       hull()
       {
         rotate(-anguloRot) translate([-shaftPos-14, -5, 0]) 
             cylinder(d=20, h=tipHeight+diam/2+2+0.6, $fn=60);
         rotate(-anguloRot) translate([-shaftPos-11, -22, 0]) 
-            cylinder(d=6, h=tipHeight+diam/2+2+0.6, $fn=60);
+            cylinder(d=8, h=tipHeight+diam/2+2+0.6, $fn=60);
       }
       
       //guiding filament structure
@@ -123,9 +123,7 @@ module pendulum()
     
     //pivoting bearing 625zz
     translate([0, 0, -1]) cylinder(d=9, h=50); 
-      //lower bearing
     translate([0, 0, -1]) cylinder(d=16+0.2, h=3+1.25); 
-//    translate([0, 0, -0.05]) cylinder(d=15+0.2, h=1.1);
     
     //shaft & bearings 625zz
     rotate(anguloRot) translate([shaftPos, -shaftDist, -1]) cylinder(d=9, h=100, $fn=60);
@@ -165,7 +163,9 @@ module pendulum()
     rotate(-anguloRot)
     {
         translate([-shaftPos-6.5, -15.5+2, -1]) rotate(-30-5.5) 
-            translate([-30,0,0]) cube([30, 15, tipHeight+diam/2+2+0.6+2]);
+            translate([-31,0,0]) cube([30, 15, tipHeight+diam/2+2+0.6+2]);
+        translate([-shaftPos-6.5, -15.5+2, pendulumHeight]) rotate(-30-5.5) 
+            translate([-27,0,0]) cube([30, 15, tipHeight+diam/2+2+0.6+2]);
         #translate([-shaftPos-15.5, 0, tipHeight-3]) rotate([90, 0, (150 - 5.5)]) translate([-3.0, 0, -7.5]) 
             cylinder(r = spring_d * 7/12, h = 10, $fn = 6);
         #translate([-shaftPos-15.5, 0, tipHeight+9]) rotate([90, 0, (150 - 5.5)]) translate([-3.0, 0, -7.5]) 
@@ -175,7 +175,10 @@ module pendulum()
     //Springs side of extruder1
     rotate(anguloRot)
     {
-        translate([shaftPos+6.5, -15.5+2, -1]) rotate(30+5.5) cube([30, 20, tipHeight+diam/2+2+0.6+2]);
+        translate([shaftPos+6.5, -15.5+2, -1]) rotate(30+5.5) 
+            translate([1, 0, 0]) cube([30, 20, tipHeight+diam/2+2+0.6+2]);
+        translate([shaftPos+6.5, -15.5+2, pendulumHeight]) rotate(30+5.5) 
+            translate([-5, 0, 0]) cube([30, 20, tipHeight+diam/2+2+0.6+2]);
         #translate([shaftPos+15.5, 0, tipHeight-3]) rotate([90, 0, -(150 - 5.5)]) translate([3.0, 0, -7.5]) 
             cylinder(r = spring_d * 7/12, h = 10, $fn = 6);
         #translate([shaftPos+15.5, 0, tipHeight+9]) rotate([90, 0, -(150 - 5.5)]) translate([3.0, 0, -7.5]) 
@@ -208,7 +211,13 @@ module pendulum()
                 cylinder(d=15, h=tipHeight+diam/2+2+0.6);
         }
     }
-
+    
+    //conecting holes
+    translate([0, 9, -1]) cylinder(d=3.1, h=tipHeight+diam/2+2+0.6+2, $fn=60);
+    rotate(anguloRot) translate([shaftPos+11, -22, -1]) 
+            cylinder(d=3.1, h=tipHeight+diam/2+2+0.6+2, $fn=60);
+    rotate(-anguloRot) translate([-shaftPos-11, -22, -1]) 
+            cylinder(d=3.1, h=tipHeight+diam/2+2+0.6+2, $fn=60);
   }
   
 
