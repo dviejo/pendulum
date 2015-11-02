@@ -12,7 +12,7 @@
 include<../../3d-Models/Commons/extruderCommons.scad>
 include<commons.scad>
 
-pendulum();
+//pendulum();
 
 //translate([0,0,40])
 //    pendulumTop();
