@@ -124,12 +124,12 @@ module pendulum()
     }
     
     //pivoting bearing 625zz
-    translate([0, 0, -1]) cylinder(d=9, h=50); 
-    translate([0, 0, -1]) cylinder(d=16+0.2, h=3+1.25); 
+    translate([0, 0, 5+0.3]) cylinder(d=9, h=50); 
+    translate([0, 0, -1]) cylinder(d=16+0.2, h=5); 
     
     //shaft & bearings 625zz
-    rotate(anguloRot) translate([shaftPos, -shaftDist, -1]) cylinder(d=9, h=100, $fn=60);
-    rotate(-anguloRot) translate([-shaftPos, -shaftDist, -1]) cylinder(d=9, h=100, $fn=60);
+    rotate(anguloRot) translate([shaftPos, -shaftDist, 5+0.3]) cylinder(d=9, h=100, $fn=60);
+    rotate(-anguloRot) translate([-shaftPos, -shaftDist, 5+0.3]) cylinder(d=9, h=100, $fn=60);
 
     rotate(anguloRot) translate([shaftPos, -shaftDist, -0.5]) cylinder(d=16+0.15, h=5, $fn=60);
     rotate(-anguloRot) translate([-shaftPos, -shaftDist, -0.5]) cylinder(d=16+0.15, h=5, $fn=60);
