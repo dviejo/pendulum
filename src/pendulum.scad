@@ -12,12 +12,12 @@
 include<../../3d-Models/Commons/extruderCommons.scad>
 include<commons.scad>
 
-pendulum();
+//pendulum();
 
-//uncomment one of the following
+//uncomment one of the following two and the third line
 //translate([0,0,40]) //for viewing
-translate([0,-80,0]) //for printing
-    pendulumTop();
+//translate([0,-80,0]) //for printing
+//    pendulumTop();
 
 module pendulum()
 {

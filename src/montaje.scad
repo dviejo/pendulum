@@ -14,12 +14,15 @@ include<commons.scad>
 use<include/MCAD/stepper.scad>
 
 
+//  translate([-37.5, -70, -10]) import("aux/Backplate.STL");
+//  translate([-92.5, -92.5, 0]) import("aux/Pendulum_101.STL");
+
   //pivoting axle
-  color("silver") translate([0, 0, -30]) cylinder(d=5, h=30+60);
+  color("silver") translate([0, 0, -5]) cylinder(d=5, h=5+47.5);
 
   
   translate([0, -shaftDist, 14]) mirror([0, 0, 1]) import("../output/pinion.stl");
-  color("silver") translate([0, -shaftDist, 0]) cylinder(d=5, h=20);
+//  color("silver") translate([0, -shaftDist, 0]) cylinder(d=5, h=20);
   translate([0, -shaftDist, -4]) mirror([0, 0, 1]) motor();
 
   rotate(anguloActual)
@@ -30,8 +33,8 @@ use<include/MCAD/stepper.scad>
     //ejes
     color("silver") 
     {
-      rotate(anguloRot) translate([shaftPos, -shaftDist, 0]) cylinder(d=5, h=60);
-      rotate(-anguloRot) translate([-shaftPos, -shaftDist, 0]) cylinder(d=5, h=60);
+      rotate(anguloRot) translate([shaftPos, -shaftDist, 0]) cylinder(d=5, h=47.5);
+      rotate(-anguloRot) translate([-shaftPos, -shaftDist, 0]) cylinder(d=5, h=47.5);
     }
     
     //filament feeder
@@ -56,7 +59,9 @@ translate([0, 0, 14+tipHeight+diam/2+2+0.6+pendulumHeight])
   rotate(anguloActual) rotate([0,180,0])
     pendulumTop();
 
-    //hotend mount
+translate([0, 0, -5])
+  backPlate();
+    
     rotate(anguloActual)
     {
 	  
