@@ -157,12 +157,18 @@ module pendulum()
 	  extruderMount();
 
       //support for idlers
-      #rotate(-anguloRot) 
-	translate([-shaftPos+15.5, -shaftDist+15.5-1, -1]) 
-	  cylinder(d=3, h=50, $fn=60);
-      #rotate(anguloRot) 
+      rotate(-anguloRot) 
+	translate([-shaftPos+15.5, -shaftDist+15.5-1, -1])
+	{
+	  translate([0, 0, 5+0.3]) cylinder(d=3, h=50, $fn=60);
+	  cylinder(d=6.2, h=5, $fn=6);
+	}
+      rotate(anguloRot) 
 	translate([shaftPos-15.5, -shaftDist+15.5-1, -1]) 
-	  cylinder(d=3, h=50, $fn=60);
+	{
+	  translate([0, 0, 5+0.3]) cylinder(d=3, h=50, $fn=60);
+	  cylinder(d=6.2, h=5, $fn=6);
+	}
 
     //Springs are now at 11.5 mm of distance from both centers
     //Springs side of extruder0
@@ -219,13 +225,20 @@ module pendulum()
     }
     
     //conecting holes
-    translate([0, 11, -1]) cylinder(d=3.1, h=tipHeight+diam/2+2+0.6+2, $fn=60);
+    translate([0, 11, -1]) cylinder(d=3.1, h=tipHeight+diam/2+2+0.6+1-3, $fn=60);
+    translate([0, 11, tipHeight+diam/2+2+0.6-3+0.3]) cylinder(d=3.1, h=10, $fn=60);
+    
     rotate(anguloRot) translate([shaftPos+11, -22, -1]) 
-            cylinder(d=3.1, h=tipHeight+diam/2+2+0.6+2, $fn=60);
+            cylinder(d=3.1, h=tipHeight+diam/2+2+0.6+1-3, $fn=60);
+    rotate(anguloRot) translate([shaftPos+11, -22, tipHeight+diam/2+2+0.6-3+0.3]) 
+            cylinder(d=3.1, h=10, $fn=60);
+	    
     rotate(-anguloRot) translate([-shaftPos-11, -22, -1]) 
-            cylinder(d=3.1, h=tipHeight+diam/2+2+0.6+2, $fn=60);
+            cylinder(d=3.1, h=tipHeight+diam/2+2+0.6+1-3, $fn=60);
+    rotate(-anguloRot) translate([-shaftPos-11, -22, tipHeight+diam/2+2+0.6-3+0.3]) 
+            cylinder(d=3.1, h=10, $fn=60);
     //connecting nuts
-    #hull()
+    hull()
     {
         translate([0, 11, tipHeight+diam/2+2+0.6-6]) rotate(90/3) cylinder(d=6.3, h=3, $fn=6);
         translate([0, 22, tipHeight+diam/2+2+0.6-6]) rotate(90/3) cylinder(d=7.0, h=3, $fn=6);
