@@ -15,7 +15,7 @@ include<commons.scad>
 //pendulum();
 
 //translate([0,0,40])
-//    pendulumTop();
+    pendulumTop();
 
 module pendulum()
 {
@@ -126,14 +126,14 @@ module pendulum()
     
     //pivoting bearing 625zz
     translate([0, 0, 5+0.3]) cylinder(d=9, h=50); 
-    translate([0, 0, -1]) cylinder(d=16+0.2, h=5); 
+    translate([0, 0, -1]) cylinder(d=16+0.2, h=5+1); 
     
     //shaft & bearings 625zz
     rotate(anguloRot) translate([shaftPos, -shaftDist, 5+0.3]) cylinder(d=9, h=100, $fn=60);
     rotate(-anguloRot) translate([-shaftPos, -shaftDist, 5+0.3]) cylinder(d=9, h=100, $fn=60);
 
-    rotate(anguloRot) translate([shaftPos, -shaftDist, -0.5]) cylinder(d=16+0.15, h=5, $fn=60);
-    rotate(-anguloRot) translate([-shaftPos, -shaftDist, -0.5]) cylinder(d=16+0.15, h=5, $fn=60);
+    rotate(anguloRot) translate([shaftPos, -shaftDist, -1]) cylinder(d=16+0.15, h=5+1, $fn=60);
+    rotate(-anguloRot) translate([-shaftPos, -shaftDist, -1]) cylinder(d=16+0.15, h=5+1, $fn=60);
     
     
     //room for the motor shaft
@@ -285,16 +285,19 @@ difference()
 
     } //union end
     
+    //middle openning
+    translate([0, -30, -1]) cylinder(d=28, h=pendulumHeight+2);
+    
     //pivoting bearing 625zz
     translate([0, 0, 5+0.3]) cylinder(d=9, h=50); 
-    translate([0, 0, -1]) cylinder(d=16+0.15, h=5); 
+    translate([0, 0, -1]) cylinder(d=16+0.15, h=5+1); 
     
     //shaft & bearings 625zz
     rotate(anguloRot) translate([shaftPos, -shaftDist, 5+0.3]) cylinder(d=9, h=100, $fn=60);
     rotate(-anguloRot) translate([-shaftPos, -shaftDist, 5+0.3]) cylinder(d=9, h=100, $fn=60);
 
-    rotate(anguloRot) translate([shaftPos, -shaftDist, -0.5]) cylinder(d=16+0.15, h=5, $fn=60);
-    rotate(-anguloRot) translate([-shaftPos, -shaftDist, -0.5]) cylinder(d=16+0.15, h=5, $fn=60);
+    rotate(anguloRot) translate([shaftPos, -shaftDist, -1]) cylinder(d=16+0.15, h=5+1, $fn=60);
+    rotate(-anguloRot) translate([-shaftPos, -shaftDist, -1]) cylinder(d=16+0.15, h=5+1, $fn=60);
 
     //support for idlers
     rotate(-anguloRot) 
