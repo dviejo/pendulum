@@ -14,7 +14,7 @@ include<commons.scad>
 
 pendulum();
 
-translate([0, 0, 40]) pendulumTop();
+//pendulumTop();
 
 module pendulum()
 {
@@ -80,7 +80,7 @@ module pendulum()
       hull()
       {
         cylinder(d=17, h=tipHeight+diam/2+2+0.6);
-        translate([0, 9, 0]) cylinder(d=8, h=tipHeight+diam/2+2+0.6);
+        translate([0, 9, 0]) cylinder(d=8, h=tipHeight+diam/2+2+0.6, $fn=6);
       }
       
       //springs' holder
@@ -193,23 +193,23 @@ module pendulum()
     rotate(-anguloRot)
     {
         translate([-shaftPos, -shaftDist, pendulumHeight])
-            cylinder(d=10, h=tipHeight+diam/2+2+0.6);
+            cylinder(d=10.2, h=tipHeight+diam/2+2+0.6+2);
         hull()
         {
             translate([-shaftPos+5+5, -shaftDist, pendulumHeight])
-                cylinder(d=10, h=tipHeight+diam/2+2+0.6);
+                cylinder(d=10.2, h=tipHeight+diam/2+2+0.6+2);
             translate([-shaftPos+15, -shaftDist, pendulumHeight])
-                cylinder(d=15, h=tipHeight+diam/2+2+0.6);
+                cylinder(d=15, h=tipHeight+diam/2+2+0.6+2);
         }
     }
     rotate(anguloRot)
     {
         translate([shaftPos, -shaftDist, pendulumHeight])
-            cylinder(d=10, h=tipHeight+diam/2+2+0.6);
+            cylinder(d=10.2, h=tipHeight+diam/2+2+0.6);
         hull()
         {
             translate([shaftPos-5-5, -shaftDist, pendulumHeight])
-                cylinder(d=10, h=tipHeight+diam/2+2+0.6);
+                cylinder(d=10.2, h=tipHeight+diam/2+2+0.6);
             translate([shaftPos-15, -shaftDist, pendulumHeight])
                 cylinder(d=15, h=tipHeight+diam/2+2+0.6);
         }
@@ -221,6 +221,26 @@ module pendulum()
             cylinder(d=3.1, h=tipHeight+diam/2+2+0.6+2, $fn=60);
     rotate(-anguloRot) translate([-shaftPos-11, -22, -1]) 
             cylinder(d=3.1, h=tipHeight+diam/2+2+0.6+2, $fn=60);
+    //connecting nuts
+    hull()
+    {
+        translate([0, 9, tipHeight+diam/2+2+0.6-6]) rotate(90/3) cylinder(d=6.3, h=3, $fn=6);
+        translate([0, 20, tipHeight+diam/2+2+0.6-6]) rotate(90/3) cylinder(d=7.0, h=3, $fn=6);
+    }
+    hull()
+    {
+        rotate(anguloRot) translate([shaftPos+11, -22, tipHeight+diam/2+2+0.6-6]) 
+            rotate(-10) cylinder(d=6.3, h=3, $fn=6);
+        rotate(anguloRot) translate([shaftPos+21, -23, tipHeight+diam/2+2+0.6-6]) 
+            rotate(-10) cylinder(d=7, h=3, $fn=6);
+    }
+    hull()
+    {
+        rotate(-anguloRot) translate([-shaftPos-11, -22, tipHeight+diam/2+2+0.6-6]) 
+            rotate(10) cylinder(d=6.3, h=3, $fn=6);
+        rotate(-anguloRot) translate([-shaftPos-21, -23, tipHeight+diam/2+2+0.6-6]) 
+            rotate(10) cylinder(d=7.0, h=3, $fn=6);
+    }
   }
   
 
