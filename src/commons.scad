@@ -20,3 +20,4 @@ tipPos = shaftPos-9.72/2;
 tipHeight = pendulumHeight+10.4+0.25;
 
 backPlateHeight = 5;
+servoWidth = 41.5 + 0.5;
