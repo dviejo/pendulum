@@ -10,6 +10,7 @@ include<../../3d-Models/Commons/extruderCommons.scad>
 include<../../3d-Models/Commons/idler.scad>
 include<pendulum.scad>
 include<commons.scad>
+include<backPlate.scad>
 
 use<include/MCAD/stepper.scad>
 
@@ -23,7 +24,7 @@ use<include/MCAD/stepper.scad>
   
   translate([0, -shaftDist, 14]) mirror([0, 0, 1]) import("../output/pinion.stl");
 //  color("silver") translate([0, -shaftDist, 0]) cylinder(d=5, h=20);
-  translate([0, -shaftDist, -4]) mirror([0, 0, 1]) motor();
+*  translate([0, -shaftDist, -4]) mirror([0, 0, 1]) motor();
 
   rotate(anguloActual)
   {
@@ -55,14 +56,14 @@ translate([0, 0, 14])
   rotate(anguloActual)
     pendulum();
 
-translate([0, 0, 14+tipHeight+diam/2+2+0.6+pendulumHeight])
+*translate([0, 0, 14+tipHeight+diam/2+2+0.6+pendulumHeight])
   rotate(anguloActual) rotate([0,180,0])
     pendulumTop();
 
-translate([0, 0, -5])
+translate([0, 0, -backPlateHeight])
   backPlate();
     
-    rotate(anguloActual)
+    *rotate(anguloActual)
     {
 	  
       //idlers

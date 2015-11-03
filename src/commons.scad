@@ -11,7 +11,7 @@
 
 anguloRot = 8; 
 
-anguloActual = -anguloRot;
+anguloActual = anguloRot;
 
 pendulumHeight = 6; //4
 shaftDist = (42+16)/2+1; //(nema17width + 625zzDiam)/2 + 1;
