@@ -26,7 +26,7 @@ module pendulum()
     union()
     {
 
-      rotate(17.6725+ anguloRot) 
+      rotate(pendulumServoRot+ anguloRot) 
       {
 	hull()
 	{
@@ -50,7 +50,7 @@ module pendulum()
       }
       hull()
       {
-	  rotate(17.6725+ anguloRot) 
+	  rotate(pendulumServoRot+ anguloRot) 
 	  {
 	    translate([10, 5, 0]) cylinder(d=10, h=pendulumHeight, $fn=60);
 	    translate([-4, 10, 0]) cylinder(d=10, h=pendulumHeight, $fn=60);
@@ -112,7 +112,7 @@ module pendulum()
     } //end union
     
     //hole for rotating from servo's arm
-    rotate(17.6725+ anguloRot) 
+    rotate(pendulumServoRot+ anguloRot) 
     {
       hull()
       {

@@ -7,7 +7,7 @@
  * You can get the next two files from https://github.com/dviejo/3d-Models
  */
 include<../../3d-Models/Commons/extruderCommons.scad>
-include<../../3d-Models/Commons/idler.scad>
+include<idler.scad>
 include<pendulum.scad>
 include<commons.scad>
 include<backPlate.scad>
@@ -16,15 +16,14 @@ use<include/MCAD/stepper.scad>
 
 
 //  translate([-37.5, -70, -10]) import("aux/Backplate.STL");
-//  translate([-92.5, -92.5, 0]) import("aux/Pendulum_101.STL");
+//  translate([-92.5, -92.5, 0]) import("aux/Pendulum.STL");
 
   //pivoting axle
   color("silver") translate([0, 0, -5]) cylinder(d=5, h=5+47.5);
 
   
   translate([0, -shaftDist, 14]) mirror([0, 0, 1]) import("../output/pinion.stl");
-//  color("silver") translate([0, -shaftDist, 0]) cylinder(d=5, h=20);
-*  translate([0, -shaftDist, -4]) mirror([0, 0, 1]) motor();
+  translate([0, -shaftDist, -4]) mirror([0, 0, 1]) motor();
 
   rotate(anguloActual)
   {
@@ -63,15 +62,15 @@ translate([0, 0, 14])
 translate([0, 0, -backPlateHeight])
   backPlate();
     
-    *rotate(anguloActual)
+    rotate(anguloActual)
     {
 	  
       //idlers
       rotate(anguloRot)
-	translate([shaftPos-15.5, -shaftDist+15.5-1, tipHeight + 14- (mainHeight/2 + offset -0.5)]) 
+	translate([shaftPos-15.5, -shaftDist+15.5-1, pendulumHeight+14]) 
 	  rotate(6) idler();
       rotate(-anguloRot)
-	translate([-shaftPos+15.5, -shaftDist+15.5-1, tipHeight+ 14 - (mainHeight/2 + offset -0.5)]) 
+	translate([-shaftPos+15.5, -shaftDist+15.5-1, pendulumHeight+ 14]) 
 	  mirror([1,0,0]) rotate(6) idler();
     }
     

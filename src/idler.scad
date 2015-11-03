@@ -11,7 +11,7 @@ include<commons.scad>
 
 idlerHeight = tipHeight+diam/2+2+0.6 - pendulumHeight;
 
-idler();
+//idler();
 
 module idler()
 {

@@ -43,12 +43,12 @@ difference()
     }
     
     //servo housing
-    translate([-40/2-(servoWidth-40), shaftDist-10, -1]) cube([servoWidth, 20+1, backPlateHeight+14+2]);
-    for(j=[-1,1])
-    {
-	translate([24, shaftDist+0.4+j*5.0, -1]) cylinder(d=3.2, h=backPlateHeight+10+2, $fn=30);
-	translate([-24-(servoWidth-40), shaftDist+0.4+j*5.0, -1]) cylinder(d=3.2, h=backPlateHeight+10+2, $fn=30);
-    }
+    translate([-servoWidth/2, shaftDist-10, -1]) cube([servoWidth, 20+1, backPlateHeight+14+2]);
+    for(i=[-1,1])
+      for(j=[-1,1])
+      {
+	translate([(servoWidth/2+4)*i, shaftDist+0.4+j*5.0, -1]) cylinder(d=3.2, h=backPlateHeight+10+2, $fn=30);
+      }
     
     //PaP housing
     translate([0, -shaftDist, -1]) cylinder(d=25, h=backPlateHeight+2);
