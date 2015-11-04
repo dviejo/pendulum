@@ -55,7 +55,7 @@ translate([0, 0, 14])
   rotate(anguloActual)
     pendulum();
 
-*translate([0, 0, 14+tipHeight+diam/2+2+0.6+pendulumHeight])
+*translate([0, 0, 14+pendulumTotalHeight+pendulumHeight])
   rotate(anguloActual) rotate([0,180,0])
     pendulumTop();
 
