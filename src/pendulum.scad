@@ -12,12 +12,12 @@
 include<../../3d-Models/Commons/extruderCommons.scad>
 include<commons.scad>
 
-pendulum();
+//pendulum();
 
 //uncomment one of the following two and the third line
 //translate([0,0,pendulumTotalHeight+pendulumHeight]) rotate([0,180,0]) //for viewing
-translate([0,-80,0]) //for printing
-pendulumTop();
+//translate([0,-80,0]) //for printing
+//pendulumTop();
 
 module pendulum()
 {
@@ -289,7 +289,7 @@ difference()
                     translate([0, -17.35, -37]) 
                     {
                         extruderMountB();
-                        translate([-35/2, 14.75, -(height1+height2+mountB_H3)]) cube([35, 8, height1+height2+mountB_H3]);
+                        #translate([-35/2, 14.75, -(height1+height2+mountB_H3)]) cube([35, 3.35, height1+height2+mountB_H3]);
                     }
         }
 
