@@ -21,7 +21,7 @@ tipPos = shaftPos-9.72/2;
 tipHeight = pendulumHeight+5; //+10.4+0.25;
 tipHeight2Top = 9.75;
 pendulumTotalHeight = 22.55;
-trackerLength = 7.05; //TODO: Adjust this measurement to your tracker's
+trackerLength = 5.5; //TODO: Adjust this measurement to your tracker's
 
 backPlateHeight = 5;
 servoWidth = 41.5 + 0.5;

@@ -12,12 +12,12 @@
 include<../../3d-Models/Commons/extruderCommons.scad>
 include<commons.scad>
 
-//pendulum();
+pendulum();
 
 //uncomment one of the following two and the third line
 //translate([0,0,pendulumTotalHeight+pendulumHeight]) rotate([0,180,0]) //for viewing
-//translate([0,-80,0]) //for printing
-//pendulumTop();
+translate([0,-80,0]) //for printing
+pendulumTop();
 
 module pendulum()
 {
@@ -106,7 +106,15 @@ module pendulum()
       
       rotate(anguloRot) translate([shaftPos-10, -shaftDist-10, 0])
         cube([10, 10, tipHeight+trackerLength]);
-      
+
+      //shaft & bearings 625zz
+      rotate(anguloRot) 
+	translate([shaftPos, -shaftDist, 0]) 
+	  cylinder(d=15, h=pendulumHeight+1, $fn=60);
+      rotate(-anguloRot) 
+	translate([-shaftPos, -shaftDist, 0]) 
+	  cylinder(d=15, h=pendulumHeight+1, $fn=60);
+
     } //end union
     
     //hole for rotating from servo's arm
@@ -115,11 +123,21 @@ module pendulum()
       hull()
       {
     
-	translate([4.8, 33.45, -1]) cylinder(d=9, h=20, $fn=60);
-	translate([-4.8, 33.45, -1]) cylinder(d=9, h=20, $fn=60);
+	translate([4.8, 33.45, -1]) cylinder(d=10, h=20, $fn=60);
+	translate([-4.8, 33.45, -1]) cylinder(d=10, h=20, $fn=60);
     
-	translate([1.75, 21.85, -1]) cylinder(d=6, h=20, $fn=60);
-	translate([-1.75, 21.85, -1]) cylinder(d=6, h=20, $fn=60);
+	translate([1.75, 21.85, -1]) cylinder(d=7, h=20, $fn=60);
+	translate([-1.75, 21.85, -1]) cylinder(d=7, h=20, $fn=60);
+      }
+
+      hull()
+      {
+    
+	translate([4.8, 33.45, -1]) cylinder(d1=10+5, d2=10, h=3, $fn=60);
+	translate([-4.8, 33.45, -1]) cylinder(d1=10+5, d2=10, h=3, $fn=60);
+    
+	translate([1.75, 21.85, -1]) cylinder(d=7+5, d2=7, h=3, $fn=60);
+	translate([-1.75, 21.85, -1]) cylinder(d=7+5, d2=7, h=3, $fn=60);
       }
   
     }
@@ -156,16 +174,16 @@ module pendulum()
 
       //support for idlers
       rotate(-anguloRot) 
-	translate([-shaftPos+15.5, -shaftDist+15.5-1, -1])
+	translate([-shaftPos+15.5, -shaftDist+15.5-1, -0.1])
 	{
 	  translate([0, 0, 5+0.3]) cylinder(d=3, h=50, $fn=60);
-	  cylinder(d=6.2, h=5, $fn=6);
+	  cylinder(d=6.2, h=5, $fn=26);
 	}
       rotate(anguloRot) 
-	translate([shaftPos-15.5, -shaftDist+15.5-1, -1]) 
+	translate([shaftPos-15.5, -shaftDist+15.5-1, -0.1]) 
 	{
-	  translate([0, 0, 5+0.3]) cylinder(d=3, h=50, $fn=60);
-	  cylinder(d=6.2, h=5, $fn=6);
+	  translate([0, 0, 4.5+0.3]) cylinder(d=3, h=50, $fn=60);
+	  cylinder(d=6.2, h=4.5, $fn=26);
 	}
 
     //Springs are now at 11.5 mm of distance from both centers
@@ -199,7 +217,7 @@ module pendulum()
     //filament guiding holes
     rotate(-anguloRot)
     {
-        translate([-shaftPos, -shaftDist, pendulumHeight])
+        translate([-shaftPos, -shaftDist, pendulumHeight+1.01])
             cylinder(d=10.2, h=pendulumTotalHeight+2);
         hull()
         {
@@ -211,7 +229,7 @@ module pendulum()
     }
     rotate(anguloRot)
     {
-        translate([shaftPos, -shaftDist, pendulumHeight])
+        translate([shaftPos, -shaftDist, pendulumHeight+1.01])
             cylinder(d=10.2, h=pendulumTotalHeight);
         hull()
         {
@@ -292,6 +310,12 @@ difference()
                         #translate([-35/2, 14.75, -(height1+height2+mountB_H3)]) cube([35, 3.35, height1+height2+mountB_H3]);
                     }
         }
+      
+      //shaft & bearings 625zz
+      rotate(anguloRot) translate([shaftPos, -shaftDist, 0]) 
+	cylinder(d=15, h=pendulumHeight+1, $fn=60);
+      rotate(-anguloRot) translate([-shaftPos, -shaftDist, 0]) 
+	cylinder(d=15, h=pendulumHeight+1, $fn=60);
 
     } //union end
 
@@ -313,10 +337,16 @@ difference()
     //support for idlers
     rotate(-anguloRot) 
         translate([-shaftPos+15.5, -shaftDist+15.5-1, -1]) 
-	  cylinder(d=3, h=50, $fn=60);
+	{
+	  translate([0, 0, 5+0.3]) cylinder(d=3, h=50, $fn=60);
+	  cylinder(d=6.2, h=5, $fn=6);
+	}
     rotate(anguloRot) 
 	translate([shaftPos-15.5, -shaftDist+15.5-1, -1]) 
-	  cylinder(d=3, h=50, $fn=60);
+	{
+	  translate([0, 0, 5+0.3]) cylinder(d=3, h=50, $fn=60);
+	  cylinder(d=6.2, h=5, $fn=6);
+	}
     
     //connecting holes
     translate([0, 11, -1]) cylinder(d=3.1, h=pendulumHeight+2, $fn=60);
