@@ -9,52 +9,58 @@
 include<../../3d-Models/Commons/extruderCommons.scad>
 include<commons.scad>
 
-idlerHeight = tipHeight+diam/2+2+0.6 - pendulumHeight;
+idlerHeight = pendulumTotalHeight - pendulumHeight; 
+holgura = 1; //0.5mm for each side
 
 //idler();
 
 module idler()
+translate([0, 0, idlerHeight]) mirror([0, 0, 1]) 
 {
   difference()
   {
     union()
     {
-      cylinder(r=5, h=idlerHeight);
-      translate([0, -15+correction, 0]) cylinder(r=5, h=idlerHeight);
-      translate([-5, -15+correction, 0]) cube([10, 15.5+correction, idlerHeight]);
+      cylinder(r=5, h=idlerHeight-holgura);
+      translate([0, -15+correction, 0]) cylinder(r=5, h=idlerHeight-holgura);
+      translate([-5, -15+correction, 0]) cube([10, 15.5+correction, idlerHeight-holgura]);
 
       rotate(-60) nestedHull()
       {
-	translate([-6.5, 0, 0]) cube([6.5, 37, idlerHeight]);
+	translate([-6.5, 0, 0]) cube([6.5, 37, idlerHeight-holgura]);
+	translate([-6.5, 23, 0]) cube([6.5, 14, idlerHeight-holgura]);
+	translate([-6.5, 23, 0]) cube([6.5, 14, idlerHeight+pendulumHeight]);
 	translate([-2.5, 37, 0]) rotate(30)
-		translate([-2.5, 0, 0]) cube([5, 4, idlerHeight]);
+		translate([-2.5, 0, 0]) 
+		  cube([5, 4, idlerHeight+pendulumHeight]);
 	translate([-2.5, 37, 0]) rotate(30)
-		translate([0, 7, 0]) cylinder(r = 2.5, h = idlerHeight);
+		translate([0, 7, 0]) 
+		  cylinder(r = 2.5, h = idlerHeight+pendulumHeight);
       }
-      rotate(-30) translate([0, 0, 0]) cube([5, 10, idlerHeight]);
-      cylinder(r=bearingRad+1.5, h=idlerHeight);
+      rotate(-30) translate([0, 0, 0]) cube([5, 10, idlerHeight-holgura]);
+      cylinder(r=bearingRad+1.5, h=idlerHeight-holgura);
       
     }
 
     //idler attaching hole
-    rotate(-9) translate([15.5 - 10 - filament_d+2.5, -15.5, 0])
-    {
-      translate([0, 0, 5.3 - 1])
-	cylinder(r = 2.5/2, h = 3.5);
-      translate([0, 0, tipHeight-pendulumHeight + 2.25+0.35])
-	cylinder(r = 3.2/2, h = 10);
-      translate([0, 0, tipHeight-pendulumHeight + 4.5])
-	cylinder(r = 3.2, h = 10);
-      // idler bearing, for viewing
-      %translate([0, 0, tipHeight-pendulumHeight -4.7/2])
-	cylinder(r = 5, h = 4);
+    rotate(-9) 
+      translate([15.5-10-filament_d+2.5, -15.5, idlerHeight+pendulumHeight-tipHeight-holgura/2])
+      {
+	//idler bearing main hole for 623zz
+	translate([0, 0, -5.5/2]) 
+	    cylinder(r = 6.5, h = 5.5);
+	#translate([0, 0, -6+0.3])
+	  cylinder(d = 3.2, h = 4);
+	translate([0, 0, 2.25+0.35])
+	  cylinder(d = 2.75, h = 10);
+	*translate([0, 0, 4.5])
+	  cylinder(r = 3.2, h = 10);
+	// idler bearing, for viewing
+	%translate([0, 0, -4.0/2])
+	  cylinder(r = 5, h = 4);
     }
-//mainHeight/2 + offset es tipHeight-pendulumHeight
-    translate([0, 0, tipHeight-pendulumHeight]) {
-	//idler bearing main hole
-	translate ([0, 0, 0]) rotate(-9) 
-	  translate([15.5 - 10 - filament_d+2.5, -15.5, -6.25/2]) //-5.5/2
-	    cylinder(r = 6.5, h = 5.4);
+
+    translate([0, 0, idlerHeight+pendulumHeight - tipHeight+holgura/2]) {
 	//filament through hole
 	hull()
 	{
@@ -68,8 +74,14 @@ module idler()
     }
 
     //spring holes
-    #translate([0, 0, idlerHeight / 2 + 5.5]) rotate([90, 0, 30]) translate([31, 0, -2]) cylinder(r = spring_d * 7/12, h = 13, $fn = 6);
-    #translate([0, 0, idlerHeight / 2 - 5.5]) rotate([90, 0, 30]) translate([31, 0, -2]) cylinder(r = spring_d * 7/12, h = 13, $fn = 6);
+    #translate([0, 0, idlerHeight+pendulumHeight-tipHeight-holgura/2 + 5.75]) 
+      rotate([90, 0, 30]) 
+	translate([31, 0, -2]) 
+	  cylinder(r = spring_d * 7/12, h = 13, $fn = 6);
+    #translate([0, 0, idlerHeight+pendulumHeight-tipHeight-holgura/2 - 5.75]) 
+      rotate([90, 0, 30]) 
+	translate([31, 0, -2]) 
+	  cylinder(r = spring_d * 7/12, h = 13, $fn = 6);
       
     //bearing holes
     translate([0, 0, -0.15]) cylinder(r=bearingRad+0.18, h=bearingHeight+0.4, $fn=30);
@@ -84,13 +96,13 @@ module idler()
     {
         hull()
 	{
-	  translate([0, -15.5, -1]) cylinder(r=5.25, h=5);
-	  translate([-5.25, -11, -1]) cube([5.25*2, 5.25*2, 5]);
+	  translate([0, -15.5, -1]) cylinder(r=5.25, h=idlerHeight+pendulumHeight - tipHeight-5);
+	  translate([-5.25, -11, -1]) cube([5.25*2, 5.25*2, idlerHeight+pendulumHeight - tipHeight-5]);
 	}
-	translate([0, 0, -1.1]) cylinder(r=bearingRad+1.5, h=10);
+	translate([0, 0, -1.1]) cylinder(r=bearingRad+1.5, h=idlerHeight);
     }
 
-    difference()
+    *difference()
     {
         hull()
 	{
@@ -102,11 +114,11 @@ module idler()
 
   }
   //support
-  translate([0, -15+correction, 0]) support(h=5);
+  translate([0, -15+correction, 0]) support(h=idlerHeight+pendulumHeight-tipHeight-5);
   difference()
   {
-    translate([0, -15+correction, 6.75]) support(h=6.2);
-    translate([-10, -15+correction, 6.65]) cube([20, 5, 6.3]);
+    translate([0, -15+correction, idlerHeight+pendulumHeight-tipHeight- 6.75/2]) support(h=6.75);
+    translate([-10, -15+correction, idlerHeight+pendulumHeight-tipHeight-6.65/2]) cube([20, 5, 7]);
   }
 
     
