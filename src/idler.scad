@@ -14,8 +14,11 @@ holgura = 1; //0.5mm for each side
 
 //idler();
 
+//translate([-20, 0, 0]) mirror([1, 0, 0])
+//idler();
+
 module idler()
-translate([0, 0, idlerHeight]) mirror([0, 0, 1]) 
+translate([0, 0, idlerHeight]) mirror([0, 0, 1])  //para visualización
 {
   difference()
   {
