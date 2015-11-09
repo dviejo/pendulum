@@ -11,6 +11,7 @@ include<commons.scad>
 
 idlerHeight = pendulumTotalHeight - pendulumHeight; 
 holgura = 1; //0.5mm for each side
+secondArmLength = 13;
 
 //idler();
 
@@ -25,8 +26,8 @@ translate([0, 0, idlerHeight]) mirror([0, 0, 1])  //para visualización
     union()
     {
       cylinder(r=5, h=idlerHeight-holgura);
-      translate([0, -15+correction, 0]) cylinder(r=5, h=idlerHeight-holgura);
-      translate([-5, -15+correction, 0]) cube([10, 15.5+correction, idlerHeight-holgura]);
+      translate([0, -secondArmLength, 0]) cylinder(r=5, h=idlerHeight-holgura);
+      translate([-5, -secondArmLength, 0]) cube([10, secondArmLength+0.5, idlerHeight-holgura]);
 
       rotate(-60) nestedHull()
       {
@@ -46,15 +47,18 @@ translate([0, 0, idlerHeight]) mirror([0, 0, 1])  //para visualización
     }
 
     //idler attaching hole
+    *rotate(-9) 
+      translate([15.5-10-filament_d+1.5, -secondArmLength-0.5, 5.5])
+	#cylinder(d = 3.2, h = 4);
     rotate(-9) 
-      translate([15.5-10-filament_d+2.5, -15.5, idlerHeight+pendulumHeight-tipHeight-holgura/2])
+      translate([15.5-10-filament_d+1.5, -secondArmLength-0.5, idlerHeight+pendulumHeight-tipHeight-holgura/2])
       {
 	//idler bearing main hole for 623zz
-	translate([0, 0, -5.5/2]) 
-	    cylinder(r = 6.5, h = 5.5);
-	#translate([0, 0, -6+0.3])
+	translate([0, 0, -6/2]) 
+	    cylinder(r = 6.5, h = 6);
+	translate([0, 0, -6+holgura/2+0.3]) 
 	  cylinder(d = 3.2, h = 4);
-	translate([0, 0, 2.25+0.35])
+	translate([0, 0, 3+0.3])
 	  cylinder(d = 2.75, h = 10);
 	*translate([0, 0, 4.5])
 	  cylinder(r = 3.2, h = 10);
@@ -87,9 +91,9 @@ translate([0, 0, idlerHeight]) mirror([0, 0, 1])  //para visualización
 	  cylinder(r = spring_d * 7/12, h = 13, $fn = 6);
       
     //bearing holes
-    translate([0, 0, -0.15]) cylinder(r=bearingRad+0.18, h=bearingHeight+0.4, $fn=30);
-    translate([0, 0, idlerHeight - bearingHeight-0.4])
-        cylinder(r=bearingRad+0.18, h=bearingHeight+0.5, $fn=30);
+    translate([0, 0, -0.1]) cylinder(r=bearingRad+0.17, h=bearingHeight+0.45+0.1, $fn=30);
+    translate([0, 0, idlerHeight - bearingHeight-0.45])
+        cylinder(r=bearingRad+0.17, h=bearingHeight+0.5, $fn=30);
       
     //main screew hole
     translate([0, 0, bearingHeight+0.5]) cylinder(r=3, h=40, $fn=15);
@@ -99,7 +103,7 @@ translate([0, 0, idlerHeight]) mirror([0, 0, 1])  //para visualización
     {
         hull()
 	{
-	  translate([0, -15.5, -1]) cylinder(r=5.25, h=idlerHeight+pendulumHeight - tipHeight-5);
+	  translate([0, -secondArmLength-0.5, -1]) cylinder(r=5.25, h=idlerHeight+pendulumHeight - tipHeight-5);
 	  translate([-5.25, -11, -1]) cube([5.25*2, 5.25*2, idlerHeight+pendulumHeight - tipHeight-5]);
 	}
 	translate([0, 0, -1.1]) cylinder(r=bearingRad+1.5, h=idlerHeight);
@@ -109,7 +113,7 @@ translate([0, 0, idlerHeight]) mirror([0, 0, 1])  //para visualización
     {
         hull()
 	{
-	  translate([0, -15.5, idlerHeight-4]) cylinder(r=5.25, h=5);
+	  translate([0, -secondArmLength-0.5, idlerHeight-4]) cylinder(r=5.25, h=5);
 	  translate([-5.25, -11, idlerHeight-4]) cube([5.25*2, 5.25*2, 5]);
 	}
 	translate([0, 0, idlerHeight-9.1]) cylinder(r=bearingRad+1.5, h=10);
@@ -117,11 +121,11 @@ translate([0, 0, idlerHeight]) mirror([0, 0, 1])  //para visualización
 
   }
   //support
-  translate([0, -15+correction, 0]) support(h=idlerHeight+pendulumHeight-tipHeight-5);
+  translate([0, -secondArmLength, 0]) support(h=idlerHeight+pendulumHeight-tipHeight-5);
   difference()
   {
-    translate([0, -15+correction, idlerHeight+pendulumHeight-tipHeight- 6.75/2]) support(h=6.75);
-    translate([-10, -15+correction, idlerHeight+pendulumHeight-tipHeight-6.65/2]) cube([20, 5, 7]);
+    translate([0, -secondArmLength, idlerHeight+pendulumHeight-tipHeight- 7.1/2]) support(h=6.75);
+    translate([-10, -secondArmLength, idlerHeight+pendulumHeight-tipHeight-7/2]) cube([20, 5, 7]);
   }
 
     
