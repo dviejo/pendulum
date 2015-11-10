@@ -11,15 +11,15 @@ include<commons.scad>
 
 idlerHeight = pendulumTotalHeight - pendulumHeight; 
 holgura = 1; //0.5mm for each side
-secondArmLength = 13;
+secondArmLength = 14;
 
-//idler();
+idler();
 
-//translate([-20, 0, 0]) mirror([1, 0, 0])
-//idler();
+translate([-20, 0, 0]) mirror([1, 0, 0])
+idler();
 
 module idler()
-translate([0, 0, idlerHeight]) mirror([0, 0, 1])  //para visualización
+//translate([0, 0, idlerHeight]) mirror([0, 0, 1])  //para visualización
 {
   difference()
   {
@@ -92,7 +92,7 @@ translate([0, 0, idlerHeight]) mirror([0, 0, 1])  //para visualización
       
     //bearing holes
     translate([0, 0, -0.1]) cylinder(r=bearingRad+0.17, h=bearingHeight+0.45+0.1, $fn=30);
-    translate([0, 0, idlerHeight - bearingHeight-0.45])
+    #translate([0, 0, idlerHeight - bearingHeight - 0.45 - holgura])
         cylinder(r=bearingRad+0.17, h=bearingHeight+0.5, $fn=30);
       
     //main screew hole
