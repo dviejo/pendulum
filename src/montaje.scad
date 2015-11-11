@@ -55,7 +55,7 @@ translate([0, 0, 14])
   rotate(anguloActual)
     pendulum();
 
-translate([0, 0, 14+pendulumTotalHeight+pendulumHeight])
+*translate([0, 0, 14+pendulumTotalHeight+pendulumHeight])
   rotate(anguloActual) rotate([0,180,0])
     pendulumTop();
 
@@ -68,9 +68,9 @@ translate([0, 0, -backPlateHeight])
       //idlers
       rotate(anguloRot)
 	translate([shaftPos-15.5, -shaftDist+15.5-1, pendulumHeight+14-0.5]) 
-	  rotate(6) idler();
+	  rotate(9) idler();
       rotate(-anguloRot)
 	translate([-shaftPos+15.5, -shaftDist+15.5-1, pendulumHeight+ 14-0.5]) 
-	  mirror([1,0,0]) rotate(6) idler();
+	  mirror([1,0,0]) rotate(9) idler();
     }
     
