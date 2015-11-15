@@ -13,13 +13,21 @@ idlerHeight = pendulumTotalHeight - pendulumHeight;
 holgura = 1; //0.5mm for each side
 secondArmLength = 14;
 
-idler();
+rotate(anguloActual)
+{
+    rotate(anguloRot)
+        translate([shaftPos-15.5, -shaftDist+15.5-1, pendulumHeight-0.5]) 
+            rotate(10)
+                idler();
 
-translate([-20, 0, 0]) mirror([1, 0, 0])
-idler();
+    rotate(-anguloRot)
+        translate([-shaftPos+15.5, -shaftDist+15.5-1, pendulumHeight-0.5]) 
+            rotate(-10)
+                mirror([1, 0, 0]) idler();
+}
 
 module idler()
-//translate([0, 0, idlerHeight]) mirror([0, 0, 1])  //para visualización
+translate([0, 0, idlerHeight]) mirror([0, 0, 1])  //para visualización
 {
   difference()
   {
@@ -29,7 +37,7 @@ module idler()
       translate([0, -secondArmLength, 0]) cylinder(r=5, h=idlerHeight-holgura);
       translate([-5, -secondArmLength, 0]) cube([10, secondArmLength+0.5, idlerHeight-holgura]);
 
-      rotate(-60) nestedHull()
+      rotate(-62.5) nestedHull()
       {
 	translate([-6.5, 0, 0]) cube([6.5, 37, idlerHeight-holgura]);
 	translate([-6.5, 23, 0]) cube([6.5, 14, idlerHeight-holgura]);
@@ -49,7 +57,7 @@ module idler()
     //idler attaching hole
     *rotate(-9) 
       translate([15.5-10-filament_d+1.5, -secondArmLength-0.5, 5.5])
-	#cylinder(d = 3.2, h = 4);
+	cylinder(d = 3.2, h = 4);
     rotate(-9) 
       translate([15.5-10-filament_d+1.5, -secondArmLength-0.5, idlerHeight+pendulumHeight-tipHeight-holgura/2])
       {
@@ -60,8 +68,6 @@ module idler()
 	  cylinder(d = 3.2, h = 4);
 	translate([0, 0, 3+0.3])
 	  cylinder(d = 2.75, h = 10);
-	*translate([0, 0, 4.5])
-	  cylinder(r = 3.2, h = 10);
 	// idler bearing, for viewing
 	%translate([0, 0, -4.0/2])
 	  cylinder(r = 5, h = 4);
@@ -82,17 +88,17 @@ module idler()
 
     //spring holes
     #translate([0, 0, idlerHeight+pendulumHeight-tipHeight-holgura/2 + 5.75]) 
-      rotate([90, 0, 30]) 
+      rotate([90, 0, 30-2.5]) 
 	translate([31, 0, -2]) 
 	  cylinder(r = spring_d * 7/12, h = 13, $fn = 6);
     #translate([0, 0, idlerHeight+pendulumHeight-tipHeight-holgura/2 - 5.75]) 
-      rotate([90, 0, 30]) 
+      rotate([90, 0, 30-2.5]) 
 	translate([31, 0, -2]) 
 	  cylinder(r = spring_d * 7/12, h = 13, $fn = 6);
       
     //bearing holes
     translate([0, 0, -0.1]) cylinder(r=bearingRad+0.17, h=bearingHeight+0.45+0.1, $fn=30);
-    #translate([0, 0, idlerHeight - bearingHeight - 0.45 - holgura])
+    translate([0, 0, idlerHeight - bearingHeight - 0.45 - holgura])
         cylinder(r=bearingRad+0.17, h=bearingHeight+0.5, $fn=30);
       
     //main screew hole

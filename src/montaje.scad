@@ -19,13 +19,13 @@ use<include/MCAD/stepper.scad>
 //  translate([-92.5, -92.5, 0]) import("aux/Pendulum.STL");
 
   //pivoting axle
-  color("silver") translate([0, 0, -5]) cylinder(d=5, h=5+47.5);
+  color("silver") translate([0, 0, -5-14]) cylinder(d=5, h=5+47.5);
 
   
-  translate([0, -shaftDist, 14]) mirror([0, 0, 1]) import("../output/pinion.stl");
-  translate([0, -shaftDist, -4]) mirror([0, 0, 1]) motor();
+  translate([0, -shaftDist, 0]) mirror([0, 0, 1]) import("../output/pinion.stl");
+  translate([0, -shaftDist, -4-14]) mirror([0, 0, 1]) motor();
 
-  rotate(anguloActual)
+  translate([0, 0, -14]) rotate(anguloActual)
   {
     rotate(anguloRot) translate([shaftPos, -shaftDist, 0]) import("../output/corona.stl");
     rotate(-anguloRot) translate([-shaftPos, -shaftDist, 0]) import("../output/corona.stl");
@@ -51,7 +51,7 @@ use<include/MCAD/stepper.scad>
   }
 
 
-translate([0, 0, 14])
+*translate([0, 0, 14])
   rotate(anguloActual)
     pendulum();
 
@@ -59,18 +59,18 @@ translate([0, 0, 14])
   rotate(anguloActual) rotate([0,180,0])
     pendulumTop();
 
-translate([0, 0, -backPlateHeight])
+translate([0, 0, -backPlateHeight - 14])
   backPlate();
     
-    rotate(anguloActual)
-    {
+*rotate(anguloActual)
+{
 	  
-      //idlers
-      rotate(anguloRot)
+    //idlers
+    rotate(anguloRot)
 	translate([shaftPos-15.5, -shaftDist+15.5-1, pendulumHeight+14-0.5]) 
 	  rotate(9) idler();
-      rotate(-anguloRot)
+    rotate(-anguloRot)
 	translate([-shaftPos+15.5, -shaftDist+15.5-1, pendulumHeight+ 14-0.5]) 
 	  mirror([1,0,0]) rotate(9) idler();
-    }
+}
     

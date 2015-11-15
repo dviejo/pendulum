@@ -12,6 +12,7 @@
 include<../../3d-Models/Commons/extruderCommons.scad>
 include<commons.scad>
 
+rotate(anguloActual)
 pendulum();
 
 //uncomment one of the following two and the third line
@@ -56,32 +57,52 @@ module pendulum()
 	    translate([-4, 10, 0]) cylinder(d=10, h=pendulumHeight, $fn=60);
 	  }
 
-        rotate(anguloRot) translate([shaftPos+11, -22, 0]) 
-            cylinder(d=6, h=pendulumHeight, $fn=60);
-        rotate(-anguloRot) translate([-shaftPos-11, -22, 0]) 
-            cylinder(d=6, h=pendulumHeight, $fn=60);
-
-	  rotate(anguloRot) translate([shaftPos+6, -45, 0]) cylinder(d=15, h=pendulumHeight, $fn=60);
-	  rotate(-anguloRot) translate([-shaftPos-6, -45, 0]) cylinder(d=15, h=pendulumHeight, $fn=60);
-	  
-	  rotate(anguloRot) translate([shaftPos-8, -48, 0]) cylinder(d=10, h=pendulumHeight, $fn=60);
-	  rotate(-anguloRot) translate([-shaftPos+8, -48, 0]) cylinder(d=10, h=pendulumHeight, $fn=60);
-
+        rotate(anguloRot)
+        {
+            translate([shaftPos+11, -22, 0]) 
+                cylinder(d=6, h=pendulumHeight, $fn=60);
+            translate([shaftPos+6, -45, 0]) 
+                cylinder(d=15, h=pendulumHeight, $fn=60);        
+            translate([shaftPos-8, -48, 0]) 
+                cylinder(d=10, h=pendulumHeight, $fn=60);
+            translate([shaftPos-8, -48, 0]) 
+                cylinder(d=10, h=pendulumHeight, $fn=60);
+        }
+        rotate(-anguloRot) 
+        {
+            translate([-shaftPos-11, -22, 0]) 
+                cylinder(d=6, h=pendulumHeight, $fn=60);
+            translate([-shaftPos-6, -45, 0]) 
+                cylinder(d=15, h=pendulumHeight, $fn=60);        
+            translate([-shaftPos+8, -48, 0]) 
+                cylinder(d=10, h=pendulumHeight, $fn=60);
+        }
       }
       hull()
       {
-	  rotate(anguloRot) translate([shaftPos+6, -45, 0]) cylinder(d=15, h=tipHeight+tipHeight2Top, $fn=60);
-	  rotate(-anguloRot) translate([-shaftPos-6, -45, 0]) cylinder(d=15, h=tipHeight+tipHeight2Top, $fn=60);
+	  rotate(anguloRot) 
+          {
+              translate([shaftPos+6, -45, 0]) 
+                cylinder(d=15, h=tipHeight+tipHeight2Top, $fn=60);
+              translate([shaftPos-8, -48, 0]) 
+                cylinder(d=10, h=tipHeight+tipHeight2Top, $fn=60);
+          }
+	  rotate(-anguloRot) 
+          {
+              translate([-shaftPos-6, -45, 0]) 
+                cylinder(d=15, h=tipHeight+tipHeight2Top, $fn=60);
+              translate([-shaftPos+8, -48, 0]) 
+                cylinder(d=10, h=tipHeight+tipHeight2Top, $fn=60);
+          }
 	  
-	  rotate(anguloRot) translate([shaftPos-8, -48, 0]) cylinder(d=10, h=tipHeight+tipHeight2Top, $fn=60);
-	  rotate(-anguloRot) translate([-shaftPos+8, -48, 0]) cylinder(d=10, h=tipHeight+tipHeight2Top, $fn=60);
       }
       
       //pivoting support structure
       hull()
       {
-        cylinder(d=17, h=pendulumTotalHeight);
-        translate([0, 11, 0]) cylinder(d=11, h=pendulumTotalHeight, $fn=6);
+        cylinder(d=16, h=pendulumTotalHeight, $fn=10);
+        translate([0, 11, 0]) 
+            cylinder(d=11, h=pendulumTotalHeight, $fn=6);
       }
 
       //springs' holder
@@ -159,8 +180,8 @@ module pendulum()
     {
       hull()
       {
-	rotate(angle) translate([0, -shaftDist, -1]) cylinder(d=5.5, h=pendulumHeight+2); 
-	rotate(angle+1) translate([0, -shaftDist, -1]) cylinder(d=5.5, h=pendulumHeight+2); 
+	rotate(angle) translate([0, -shaftDist, -1]) cylinder(d=5.5, h=pendulumHeight+2, $fn=25); 
+	rotate(angle+1) translate([0, -shaftDist, -1]) cylinder(d=5.5, h=pendulumHeight+2, $fn=25); 
       }
     }
     
@@ -173,13 +194,13 @@ module pendulum()
 	  extruderMount();
 
       //support for idlers
-      rotate(-anguloRot) 
+      #rotate(-anguloRot) 
 	translate([-shaftPos+15.5, -shaftDist+15.5-1, -0.1])
 	{
 	  translate([0, 0, 5+0.3]) cylinder(d=3, h=50, $fn=60);
 	  cylinder(d=6.2, h=5, $fn=26);
 	}
-      rotate(anguloRot) 
+      #rotate(anguloRot) 
 	translate([shaftPos-15.5, -shaftDist+15.5-1, -0.1]) 
 	{
 	  translate([0, 0, 4.5+0.3]) cylinder(d=3, h=50, $fn=60);
