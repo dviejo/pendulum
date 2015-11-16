@@ -322,17 +322,18 @@ difference()
         //extruder mountings
         for(i=[-1,1]) difference()
         {
-          translate([i*tipPos, 0, pendulumTotalHeight-tipHeight-tipHeight2Top-1]) 
+          translate([i*tipPos, 0, pendulumTotalHeight-tipHeight-tipHeight2Top-1-0.35]) 
             rotate(i*anguloRot) 
                 rotate([-90, 0, 0]) 
                     translate([0, -17.35, -37]) 
                     {
                         extruderMountB();
-                        #translate([-35/2, 14.75, -(height1+height2+mountB_H3)]) cube([35, 3.35, height1+height2+mountB_H3]);
+                        #translate([-35/2, 14.75-0.35, -(height1+height2+mountB_H3)]) cube([35, 3.35, height1+height2+mountB_H3]);
                     }
         }
       
       //shaft & bearings 625zz
+      cylinder(d=15, h=pendulumHeight+1, $fn=60);
       rotate(anguloRot) translate([shaftPos, -shaftDist, 0]) 
 	cylinder(d=15, h=pendulumHeight+1, $fn=60);
       rotate(-anguloRot) translate([-shaftPos, -shaftDist, 0]) 
